@@ -1,0 +1,18 @@
+# search for container image on redhat catalog https://catalog.redhat.com/software/containers/explore/
+
+# pull image from external registry ex. redhat
+sudo docker login -u vinaghda -p 'ThisisP@ssw0rd' registry.redhat.io
+sudo docker pull registry.redhat.io/openjdk/openjdk-8-rhel8
+
+# tag and push image to docker-registry internal 
+sudo docker tag registry.redhat.io/openjdk/openjdk-8-rhel8 docker-registry.default.svc.cluster.local/new-project/openjdk8:latest
+sudo docker push docker-registry.default.svc.cluster.local/new-project/openjdk8:latest
+
+# save image 
+sudo docker save -o openjdk.tar  docker-registry.default.svc.cluster.local/new-project/openjdk8:latest
+
+# load or import image to registry
+sudo docker load -i openjdk.tar
+
+# login to docker-registry with token oc user
+sudo docker login -u admin -p $(oc whoami -t) <docker-registry-URL>
