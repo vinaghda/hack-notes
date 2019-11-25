@@ -1,0 +1,25 @@
+####################  Node Labeling  ####################
+
+# list all nodes label
+oc get nodes --show-label
+
+# Add new label to the nodes
+oc label node <node-new-worker-node> node=worker	
+
+# Example
+oc label node prdworker1 node=newworker
+
+####################   Migrating Pod to Another Nodes   ####################
+
+# Disable schedule on old worker node
+oc adm manage-node <old node> --schedulable=false
+
+# Evacuate pods on old worker node
+oadm drain <old node> <new node> 
+
+# Check if there is no pod running on old worker node
+oc get pod -o wide --all-namespaces | grep <old node>
+
+# Check to make sure all pods running properly (Status must be running and the state is 1/1)
+oc get pod -o wide --all-namespaces | grep <new node>
+
