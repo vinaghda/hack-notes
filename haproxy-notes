@@ -1,7 +1,12 @@
-# Enable haproxy dashboard for monitor transaction
+#################### Enable haproxy dashboard for monitor transaction  ####################
+
 cd /etc/haproxy
+
+# Backup config
 cp haproxy.cfg haproxy-backup-"$(date +"%Y-%m-%d")"
-"# vi /etc/haproxy/haproxy.cfg 
+
+# Modify haproxy.cfg
+vi /etc/haproxy/haproxy.cfg 
 
 listen  stats   [ip node haproxy]:1936
 
@@ -9,38 +14,18 @@ listen  stats   [ip node haproxy]:1936
         stats hide-version
         stats refresh 30s
         stats show-node
-        stats auth admin:T3lk0ms3l!2018
+        stats auth <user>:<password>
         #parameter for haproxy monitor credential
         stats uri  /haproxy?stats
-        #parameter for haproxy stats url"
-"# vi etc/haproxy/haproxy.cfg 
+        #parameter for haproxy stats url
 
-backend app
-    balance     roundrobin
-    mode http
-#    server  app1 127.0.0.1:5001 check
-#    server  app2 127.0.0.1:5002 check
-#    server  app3 127.0.0.1:5003 check
-#    server  app4 127.0.0.1:5004 check
-server es1node1 10.42.97.15:9200 check
-server es2node1 10.42.97.16:9200 check
-server es3node1 10.42.97.26:9200 check
-server es4node1 10.42.97.27:9200 check
-server <servername> <ip address>:<port> check
-server <servername> <ip address>:<port> check
-server <servername> <ip address>:<port> check
-server <servername> <ip address>:<port> check
-"
-# ip a show | grep bond0
-# systemctl restart haproxy
-# systemctl status haproxy
-# systemctl status keepalived
-#ip a show | grep bond0
+# Restart service haproxy
+systemctl restart haproxy
+systemctl status haproxy
+systemctl restart keepalived
+systemctl status keepalived
 
-# systemctl restart keepalived
-
+# Open haproxy stats from browser
 http://[ip node haproxy]:1936/haproxy?stats
-
-
 
 https://tecadmin.net/how-to-configure-haproxy-statics/
