@@ -1,0 +1,15 @@
+# Create new dnsmasq entry file
+sudo vi /etc/dnsmasq.d/<filename.conf>
+address=/<fully.qualified.domain.name>/<ipaddress>
+
+# Example :
+sudo vi /etc/dnsmasq.d/pnt.digitalconre.telkomsel.com.conf
+address=/apps.vinaghda.dev.com/172.24.1.222
+
+sudo systemctl restart dnsmasq
+
+# Testing dns
+nslookup <fully.qualified.domain.name>
+
+# Example :
+nslookup apps.vinaghda.dev.com
