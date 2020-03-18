@@ -3,7 +3,7 @@ sudo vi /etc/dnsmasq.d/<filename.conf>
 address=/<fully.qualified.domain.name>/<ipaddress>
 
 # Example :
-sudo vi /etc/dnsmasq.d/pnt.digitalconre.telkomsel.com.conf
+sudo vi /etc/dnsmasq.d/pnt.digital.vinaghda.com.conf
 address=/apps.vinaghda.dev.com/172.24.1.222
 
 sudo systemctl restart dnsmasq
